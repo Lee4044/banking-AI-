@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Banking Assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Banking Assistant</h1>
+            <p>Secure and helpful. Ask about banking services and policies.</p>
+        </header>
+        
+        <div id="chat-box" class="chat-box">
+            <div class="message ai-message">
+                Hello. I am your virtual banking assistant. How can I help you today?
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <div class="controls">
+                <select id="search-type" title="Retriever search type">
+                    <option value="similarity" selected>Similarity</option>
+                    <option value="mmr">MMR</option>
+                </select>
+                <label for="use-agent" class="agent-toggle">
+                    <input type="checkbox" id="use-agent"> Use Agent (Web/Tools)
+                </label>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" id="user-input" placeholder="Type your question here..." onkeypress="handleKeyPress(event)" autofocus>
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Store conversation history in memory
+        let chatHistory = [];
+
+        async function sendMessage() {
+            const inputField = document.getElementById('user-input');
+            const chatBox = document.getElementById('chat-box');
+            const question = inputField.value.trim();
+            const searchType = document.getElementById('search-type').value;
+            const useAgent = document.getElementById('use-agent').checked;
+            
+            if (!question) return;
+
+            // Add user message
+            appendMessage(question, 'user-message');
+            inputField.value = '';
+
+            // Show loading or something?
+            const loadingId = appendMessage("Thinking...", 'ai-message', true);
+
+            try {
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        question: question,
+                        search_type: searchType,
+                        use_agent: useAgent,
+                        chat_history: chatHistory
+                    })
+                });
+                
+                if (!response.ok) {
+                    const text = await response.text();
+                    throw new Error(`Server Error: ${response.status} - ${text}`);
+                }
+
+                const data = await response.json();
+                
+                // Remove loading message
+                const loadingElement = document.getElementById(loadingId);
+                if (loadingElement) loadingElement.remove();
+                
+                // Add AI response
+                appendMessage(data.answer, 'ai-message');
+
+                // Update chat history
+                chatHistory.push({"role": "user", "content": question});
+                chatHistory.push({"role": "assistant", "content": data.answer});
+
+            } catch (error) {
+                console.error('Error:', error);
+                const loadingElement = document.getElementById(loadingId);
+                if (loadingElement) loadingElement.remove();
+                appendMessage("Sorry, something went wrong. Please try again.", 'ai-message');
+            }
+        }
+
+        function appendMessage(text, className, isLoading=false) {
+            const chatBox = document.getElementById('chat-box');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${className}`;
+            messageDiv.innerText = text;
+            
+            const id = 'msg-' + Date.now();
+            messageDiv.id = id;
+            
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return id;
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+
+BANKING SERVICES KNOWLEDGE BASE
+
+1. ACCOUNT TYPES
+- Savings Account: Good for saving money. Earns 2.5% annual interest. No monthly fee if balance > $500.
+- Checking Account: Good for daily spending. Includes debit card. $10 monthly fee (waived with direct deposit).
+- Student Account: No monthly fees for students under 25.
+- Business Account: For small business owners. Includes payroll tools.
+
+2. CARDS
+- Debit Card: Linked to checking account. Withdraw cash at ATMs.
+- Credit Card: Borrow money up to a limit. Pay back later. 
+  - Gold Card: 2% cash back on all purchases. $100 annual fee.
+  - Basic Card: No annual fee. 1% cash back on groceries.
+
+3. LOANS
+- Personal Loan: Up to $50,000. Interest rates start at 7%.
+- Mortgage: For buying a home. 15 or 30 year terms.
+- Auto Loan: For buying a car. Rates start at 4%.
+
+4. DIGITAL BANKING
+- Mobile App: Check balance, transfer money, pay bills.
+- Online Banking: Login at www.ourbank.com.
+- Zelle: Send money to friends instantly.
+
+5. SECURITY
+- Never share your password or PIN.
+- We will never ask for your password via email or phone.
+- Enable 2-Factor Authentication (2FA) for extra safety.
+- Report lost cards immediately at 1-800-BANK-HELP.
+
+6. FEES
+- Overdraft Fee: $35 if you spend more than you have.
+- ATM Fee: Free at our ATMs. $3 at other ATMs.
+- Wire Transfer: $25 domestic, $45 international.
+
+7. CONTACT US
+- Phone: 1-800-555-0199 (24/7)
+- Email: support@ourbank.com
+- Visit a branch: Mon-Fri 9am-5pm.
